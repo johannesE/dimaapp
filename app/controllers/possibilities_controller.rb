@@ -8,6 +8,14 @@ class PossibilitiesController < ApplicationController
     @topic = Topic.find params[:topic_id]
   end
 
+  def vote
+    @possibilities = Possibility.all.order("RANDOM()").limit(2)
+    if @possibilities.size != 2
+      # TODO: throw exception because there is not enough stuff to vote for
+    end
+    @topic = Topic.find params[:topic_id]
+  end
+
   # GET /possibilities/1
   # GET /possibilities/1.json
   def show

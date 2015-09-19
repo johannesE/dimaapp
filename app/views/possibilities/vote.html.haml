@@ -1,0 +1,8 @@
+%h1 Pick the one you prefer
+
+.col-md-6
+  .well.well-sm
+    = @possibilities.to_a[0].name
+.col-md-6
+  .well.well-sm
+    = @possibilities.to_a[1].name
