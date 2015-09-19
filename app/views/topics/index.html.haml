@@ -1,0 +1,25 @@
+%h1 Listing topics
+
+%table.table
+  %thead
+    %tr
+      %th Question
+      %th Author
+      %th
+      %th
+      %th
+
+  %tbody
+    - @topics.each do |topic|
+      %tr
+        %td= link_to topic.question, topic
+        %td= topic.user.name
+        -# TODO: Add link to all the topics of this user.
+        %td= link_to 'Show', topic
+        - if current_user == topic.user
+          %td= link_to 'Edit', edit_topic_path(topic)
+          %td= link_to 'Destroy', topic, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Topic', new_topic_path

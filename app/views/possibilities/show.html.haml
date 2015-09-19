@@ -1,0 +1,17 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @possibility.name
+%p
+  %b User:
+  = @possibility.user
+%p
+  %b Topic:
+  = @possibility.topic
+
+= link_to 'New Possibility', new_topic_possibility_path
+\|
+= link_to 'Edit', edit_topic_possibility_path(@topic, @possibility)
+\|
+= link_to 'Back', topic_possibilities_path

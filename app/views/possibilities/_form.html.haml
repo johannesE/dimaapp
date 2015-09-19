@@ -1,0 +1,9 @@
+= simple_form_for([:topic, @possibility]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    This is what people will see when they compare different topics.
+    = f.input :name
+
+  .form-actions
+    = f.button :submit

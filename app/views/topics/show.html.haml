@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Question:
+  = @topic.question
+%p
+  %b User:
+  = @topic.user.name
+
+= link_to 'Check the Options', topic_possibilities_path(@topic), :class => 'btn btn-default'
+%br
+= link_to_if is_current_user_author?(@topic), 'Edit', edit_topic_path(@topic)
+\|
+= link_to 'Back', topics_path
+

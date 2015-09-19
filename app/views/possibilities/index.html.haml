@@ -1,0 +1,27 @@
+%h4 possibilities for the topic
+%h4.well.well-sm= @topic.question
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th User
+      %th Topic
+      %th
+      %th
+      %th
+
+  %tbody
+    - @possibilities.each do |possibility|
+      %tr
+        %td= link_to possibility.name, topic_possibility_path(@topic, possibility)
+        %td= possibility.user
+        %td= possibility.topic
+        %td= link_to 'Show', topic_possibility_path(@topic, possibility)
+        - if current_user == possibility.user
+          %td= link_to 'Edit', edit_topic_possibility_path(@topic, possibility)
+          %td= link_to 'Destroy', topic_possibility_path(@topic, possibility), :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Possibility', new_topic_possibility_path
