@@ -1,5 +1,6 @@
 class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
+  before_action :require_current_user, only: [:new, :create, :update, :destroy]
 
   # GET /topics
   # GET /topics.json
@@ -63,6 +64,13 @@ class TopicsController < ApplicationController
   end
 
   private
+    def require_current_user
+      unless current_user == @topic.user or current_user.role == 'admin'
+        flash[:error] = "You must have created this topic to access this section"
+        redirect_to topic_path # halts request cycle
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_topic
       @topic = Topic.find(params[:id])

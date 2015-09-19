@@ -1,5 +1,6 @@
 class PossibilitiesController < ApplicationController
   before_action :set_possibility, only: [:show, :edit, :update, :destroy]
+  before_action :require_current_user, only: [:new, :create, :update, :destroy]
 
   # GET /possibilities
   # GET /possibilities.json
@@ -76,6 +77,13 @@ class PossibilitiesController < ApplicationController
   end
 
   private
+    def require_current_user
+      unless current_user == Topic.find(params[:topic_id]).user or current_user.role == 'admin'
+        flash[:error] = "You must have created this topic to access this section"
+        redirect_to topic_possibilities_path # halts request cycle
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_possibility
       @possibility = Possibility.find(params[:id])
