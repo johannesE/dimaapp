@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
-  before_action :require_current_user, only: [:new, :create, :update, :destroy]
+  before_action :require_current_user, only: [:update, :destroy]
 
   # GET /topics
   # GET /topics.json
@@ -25,7 +25,6 @@ class TopicsController < ApplicationController
   # POST /topics
   # POST /topics.json
   def create
-    print 'test'
     @topic = Topic.new(topic_params)
 
     respond_to do |format|

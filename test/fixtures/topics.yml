@@ -2,8 +2,8 @@
 
 topicone:
   question: Question1
-  user_id: 1
+  user: user_one
 
 topictwo:
   question: Question2
-  user_id: 1
+  user: user_one
