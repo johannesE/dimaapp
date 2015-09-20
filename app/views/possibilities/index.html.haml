@@ -22,7 +22,7 @@
         %td= possibility.won
         %td= possibility.lost
         %td= link_to 'Show', topic_possibility_path(@topic, possibility)
-        - if current_user == possibility.user
+        - if current_user == possibility.user or current_user.role == "admin"
           %td= link_to 'Edit', edit_topic_possibility_path(@topic, possibility)
           %td= link_to 'Destroy', topic_possibility_path(@topic, possibility), :method => :delete, :data => { :confirm => 'Are you sure?' }
 
