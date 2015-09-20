@@ -8,6 +8,10 @@ class PossibilitiesController < ApplicationController
     topic_id = params[:topic_id]
     @possibilities = Possibility.where(:topic_id => topic_id)
     @topic = Topic.find topic_id
+    respond_to do |format|
+      format.html
+      format.csv { send_data @possibilities.to_csv }
+    end
   end
 
   # post a vote
