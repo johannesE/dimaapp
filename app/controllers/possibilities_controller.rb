@@ -1,6 +1,6 @@
 class PossibilitiesController < ApplicationController
   before_action :set_possibility, only: [:show, :edit, :update, :destroy]
-  before_action :require_current_user, only: [:new, :create, :update, :destroy]
+  before_action :require_current_user, only: [:create, :update, :destroy]
 
   # GET /possibilities
   # GET /possibilities.json
