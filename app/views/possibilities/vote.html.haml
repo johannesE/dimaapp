@@ -1,9 +1,14 @@
+
 %h1.text-center
   =@topic.question
-
+- right = @possibilities.to_a[1]
+- left = @possibilities.to_a[0]
 .col-md-6
-  .well.well-sm
-    = @possibilities.to_a[0].name
+  = link_to topic_do_vote_path(:winner => left.id, loser: right.id), method: :post do
+    .well.well-sm
+      .text-right
+        = left.name
 .col-md-6
-  .well.well-sm
-    = @possibilities.to_a[1].name
+  = link_to topic_do_vote_path(:winner => right.id, loser: left.id), method: :post do
+    .well.well-sm
+      = right.name

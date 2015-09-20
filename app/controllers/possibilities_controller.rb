@@ -10,7 +10,20 @@ class PossibilitiesController < ApplicationController
     @topic = Topic.find topic_id
   end
 
-  # GET /possibilities
+  # post a vote
+  def do_vote
+    winner = Possibility.find(params[:winner])
+    loser = Possibility.find(params[:loser])
+    winner.won = winner.won.nil? ? 1 : winner.won + 1
+    loser.lost = loser.lost.nil? ? 1 : loser.lost + 1
+    if winner.save! and loser.save!
+      redirect_to topic_vote_path
+    else
+      vote
+      render :vote
+    end
+  end
+
   def vote
     topic_id = params[:topic_id]
     @possibilities = Possibility.where(:topic_id => topic_id).order("RANDOM()").limit(2)
@@ -93,7 +106,7 @@ class PossibilitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def possibility_params
-      params[:possibility][:user_id] = current_user
+      params[:possibility][:user_id] = current_user.id
       params[:possibility][:topic_id] = params[:topic_id]
       params.require(:possibility).permit(:name, :user_id, :topic_id)
     end

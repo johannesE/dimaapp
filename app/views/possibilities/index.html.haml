@@ -1,12 +1,14 @@
 %h4 possibilities for the topic
 %h4.well.well-sm= @topic.question
 
-%table
+%table.table
   %thead
     %tr
       %th Name
-      %th User
+      %th Creator
       %th Topic
+      %th Wins
+      %th Losses
       %th
       %th
       %th
@@ -17,6 +19,8 @@
         %td= link_to possibility.name, topic_possibility_path(@topic, possibility)
         %td= possibility.user
         %td= possibility.topic
+        %td= possibility.won
+        %td= possibility.lost
         %td= link_to 'Show', topic_possibility_path(@topic, possibility)
         - if current_user == possibility.user
           %td= link_to 'Edit', edit_topic_possibility_path(@topic, possibility)

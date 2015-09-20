@@ -24,9 +24,17 @@ class PossibilitiesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should_do_vote" do
+  test "should do vote" do
+    winner = possibilities(:one)
+    loser = possibilities(:possibility3)
+    params = {winner: winner.id, loser: loser.id}
+    post :do_vote, {topic_id: topics(:topicone).id}.merge(params)
+    assert_equal winner.lost, Possibility.find(winner.id).lost
+    assert_equal winner.won + 1, Possibility.find(winner.id).won
+    assert_equal loser.won, Possibility.find(loser.id).won
+    assert_equal loser.lost + 1, Possibility.find(loser.id).lost
 
-
+    assert_redirected_to topic_vote_path
   end
 
   test "should create possibility" do
