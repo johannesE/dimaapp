@@ -1,49 +1,56 @@
 require 'test_helper'
 
 class PossibilitiesControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
+
   setup do
     @possibility = possibilities(:one)
+    @topic = topics(:topicone)
   end
 
   test "should get index" do
-    get :index
+    get :index, :topic_id => topics(:topicone).id
     assert_response :success
     assert_not_nil assigns(:possibilities)
   end
 
   test "should get new" do
-    get :new
+    get :new, :topic_id => topics(:topicone).id
+    assert_response :success
+  end
+
+  test "should get vote" do
+    get :vote, :topic_id => topics(:topicone).id
     assert_response :success
   end
 
   test "should create possibility" do
     assert_difference('Possibility.count') do
-      post :create, possibility: { name: @possibility.name, topic_id: @possibility.topic_id, user_id: @possibility.user_id }
+      post :create, :topic_id => @possibility.topic_id, possibility: { name: @possibility.name, topic_id: @possibility.topic_id, user_id: @possibility.user_id }
     end
-
-    assert_redirected_to possibility_path(assigns(:possibility))
+    assert_response :redirect
   end
 
   test "should show possibility" do
-    get :show, id: @possibility
+    get :show, {:topic_id => topics(:topicone).id, id: @possibility}
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @possibility
+    get :edit, {:id => @possibility.id, topic_id: topics(:topicone).id}
     assert_response :success
   end
 
   test "should update possibility" do
-    patch :update, id: @possibility, possibility: { name: @possibility.name, topic_id: @possibility.topic_id, user_id: @possibility.user_id }
-    assert_redirected_to possibility_path(assigns(:possibility))
+    patch :update, id: @possibility, possibility: { name: @possibility.name, topic_id: @possibility.topic_id, user_id: @possibility.user_id }, :topic_id => topics(:topicone).id
+    assert_response :redirect
   end
 
   test "should destroy possibility" do
     assert_difference('Possibility.count', -1) do
-      delete :destroy, id: @possibility
+      delete :destroy, id: @possibility, :topic_id => topics(:topicone).id
     end
 
-    assert_redirected_to possibilities_path
+    assert_redirected_to topic_possibilities_path
   end
 end

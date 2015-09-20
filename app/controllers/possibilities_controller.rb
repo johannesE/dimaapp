@@ -10,11 +10,12 @@ class PossibilitiesController < ApplicationController
     @topic = Topic.find topic_id
   end
 
+  # GET /possibilities
   def vote
     topic_id = params[:topic_id]
     @possibilities = Possibility.where(:topic_id => topic_id).order("RANDOM()").limit(2)
     if @possibilities.size != 2
-      # TODO: throw exception because there is not enough stuff to vote for
+      redirect_to topic_possibilities_path topic_id, :alert => 'There are not enough possibilities to start a vote'
     end
     @topic = Topic.find topic_id
   end
@@ -33,6 +34,7 @@ class PossibilitiesController < ApplicationController
 
   # GET /possibilities/1/edit
   def edit
+    @topic = Topic.find params[:topic_id]
   end
 
   # POST /possibilities
@@ -57,7 +59,7 @@ class PossibilitiesController < ApplicationController
   def update
     respond_to do |format|
       if @possibility.update(possibility_params)
-        format.html { redirect_to @possibility, notice: 'Possibility was successfully updated.' }
+        format.html { redirect_to topic_possibility_path(@possibility.topic_id, @possibility), notice: 'Possibility was successfully updated.' }
         format.json { render :show, status: :ok, location: @possibility }
       else
         format.html { render :edit }

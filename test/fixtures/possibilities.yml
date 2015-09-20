@@ -2,10 +2,21 @@
 
 one:
   name: MyString
-  user_id: 
-  topic_id: 
+  user_id: 0
+  topic: topicone
+  won: 0
+  lost: 0
+
+possibility3:
+  name: MyString
+  user_id: 0
+  topic: topicone
+  won: 5
+  lost: 8
 
 two:
   name: MyString
-  user_id: 
-  topic_id: 
+  user_id: 0
+  topic_id: topictwo
+  won: 99
+  lost: 102
